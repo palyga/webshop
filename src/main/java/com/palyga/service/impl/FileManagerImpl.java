@@ -21,40 +21,53 @@ public class FileManagerImpl implements FileManager {
     @Override
     public void createFile(String fileName, MultipartFile file) {
         try {
-            File newFile=new File("C:/picture/"+fileName);
-            if(!newFile.exists()){
+            File newFile = new File("C:/picture/" + fileName);
+            if (!newFile.exists()) {
                 newFile.createNewFile();
             }
             byte[] bytes = file.getBytes();
-            outputStream= new FileOutputStream(newFile);
+            outputStream = new FileOutputStream(newFile);
             outputStream.write(bytes);
             outputStream.flush();
             outputStream.close();
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void deleteFile(String fileName) {
-        try{
-            File file=new File(fileName);
+        try {
+            File file = new File(fileName);
             file.delete();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public byte[] getFile(String fileName) {
+        String location = "C:/picture/";
+        String file = fileName + ".jpg";
+        String fileLocation = location + file;
+        byte[] array;
+
+        if (isFileExist(fileLocation)) {
             try {
-                InputStream is = new FileInputStream("C:/picture/"+fileName+".jpg");
-                byte[] array = IOUtils.toByteArray(is);
+                InputStream is = new FileInputStream(fileLocation);
+                array = IOUtils.toByteArray(is);
                 return array;
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+        return null;
+    }
+
+    public boolean isFileExist(String fileName) {
+        File file = new File(fileName);
+        return (file.exists() && !file.isDirectory());
     }
 }

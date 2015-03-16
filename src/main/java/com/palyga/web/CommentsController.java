@@ -35,6 +35,13 @@ public class CommentsController {
         return escapedComment;
     }
 
+    //add to the security template
+    //for manager
+    @RequestMapping(value = "/deleteComment",method = RequestMethod.POST)
+    public String deleteComment(){
+        return null;
+    }
+
 
 
 

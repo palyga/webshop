@@ -12,4 +12,6 @@ public interface FileManager {
     public void deleteFile(String fileName);
 
     public byte[] getFile(String fileName);
+
+    public boolean isFileExist(String fileName);
 }
